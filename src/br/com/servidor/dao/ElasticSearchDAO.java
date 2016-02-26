@@ -22,6 +22,17 @@ import br.com.servidor.factory.ESClientProvider;
 import br.com.servidor.model.CordenadaGeografica;
 
 public class ElasticSearchDAO {
+	private static String index="cordenadas";
+	private static String type="cordenada";
+	
+	private static ElasticSearchDAO instace;
+	
+	public static ElasticSearchDAO getInstance() {
+		if(instace == null) {
+			instace = new ElasticSearchDAO();;
+		}
+		return instace;
+	}
 
 	public void chamarNode() {
 		Node node = NodeBuilder.nodeBuilder().clusterName("elasticsearch")
@@ -34,11 +45,11 @@ public class ElasticSearchDAO {
 				//.actionGet();
 		System.out.println("passo");
 
-		getDocument(client, "cordenadas", "cordenada", "1");
+		getDocument(client,  "1");
 		
-		updateDocument(client, "cordenadas", "cordenada", "1", "id", "20");
+		//updateDocument(client, "cordenadas", "cordenada", "1", "id", "20");
 		
-		getDocument(client, "cordenadas", "cordenada", "1");
+		getDocument(client,  "1");
 
 		node.close();
 	}
@@ -55,8 +66,7 @@ public class ElasticSearchDAO {
 		return jsonDocument;
 	}
 
-	public static void getDocument(Client client, String index, String type,
-			String id) {
+	public static void getDocument(Client client, String id) {
 
 		GetResponse getResponse = client.prepareGet(index, type, id).execute()
 				.actionGet();
@@ -72,28 +82,32 @@ public class ElasticSearchDAO {
 
 	}
 
-	public static void updateDocument(Client client, String index, String type,
-			String id, String field, String newValue) {
-		
+	private static void updateDocument(Client client, String index, String type,CordenadaGeografica cordenada) {
+		getDocument(ESClientProvider.instance().getClient(), cordenada.getIdString());
 		UpdateRequest updateRequest = new UpdateRequest();
 		updateRequest.index(index);
 		updateRequest.type(type);
-		updateRequest.id(id);
-		updateRequest.doc(putJsonDocument(Integer.parseInt(newValue), 20, 12));
+		updateRequest.id(cordenada.getIdString());
+		updateRequest.doc(putJsonDocument(cordenada.getID(),cordenada.getLat(),cordenada.getLon()));
 		try {
 			client.update(updateRequest).get();
 		} catch (InterruptedException | ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		getDocument(ESClientProvider.instance().getClient(), cordenada.getIdString());
+		
 	}
 
 	public void adicionarCordenada(CordenadaGeografica aux) {
-		Client client = ESClientProvider.instance().getClient();
 		
-		client.prepareIndex("cordenadas", "cordenada")
+		Client client = ESClientProvider.instance().getClient();
+		System.out.println(putJsonDocument(aux.getID(), aux.getLat(), aux.getLon()).toString());
+		client.prepareIndex("cordenadas", "cordenada",Integer.toString(aux.getID()))
 			.setSource(putJsonDocument(aux.getID(), aux.getLat(), aux.getLon())).execute()
 			.actionGet();
+		System.out.println(aux.getID());
+		getDocument(client, Integer.toString( aux.getID()));
 	}
 
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
@@ -109,6 +123,11 @@ public class ElasticSearchDAO {
 		
 		
 		return null;
+	}
+
+	public void updateCordenada(CordenadaGeografica cordenada) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

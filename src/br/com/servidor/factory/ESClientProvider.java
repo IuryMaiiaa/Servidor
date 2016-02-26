@@ -22,6 +22,7 @@ public class ESClientProvider {
 				}
 			}
 		}
+		System.out.println(instance.toString());
 		return instance;
 	}
 
@@ -39,6 +40,7 @@ public class ESClientProvider {
 	}
 
 	public Client getClient() {
+		prepareClient();
 		return client;
 	}
 

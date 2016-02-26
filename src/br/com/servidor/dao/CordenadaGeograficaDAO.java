@@ -72,7 +72,7 @@ public class CordenadaGeograficaDAO extends ConnectionFactory {
 			pstmt = conexao.prepareStatement(query);
 			pstmt.setDouble(1, cordenada.getLat()); // set input parameter 1
 		    pstmt.setDouble(2, cordenada.getLon()); // set input parameter 2
-		    pstmt.executeUpdate(); // execute insert statement
+		    pstmt.executeQuery();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,6 +102,15 @@ public class CordenadaGeograficaDAO extends ConnectionFactory {
 			pstmt = conexao.prepareStatement(query);
 			pstmt.setDouble(1, lat); // set input parameter 1
 		    pstmt.setDouble(2, lon);
+		    rs = pstmt.executeQuery();
+		    
+		    while(rs.next()) {
+				
+				cordenada.setID(rs.getInt("id"));
+				cordenada.setLat(rs.getDouble("lat"));
+				cordenada.setLon(rs.getDouble("lon"));
+			}
+		    
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,6 +120,35 @@ public class CordenadaGeograficaDAO extends ConnectionFactory {
 		
 		return cordenada;
 		
+	}
+
+
+
+
+	public boolean update(CordenadaGeografica cordenada) {
+		
+		Connection conexao = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		conexao = 	this.criarConexao();
+		
+		String query = "UPDATE table_name SET lat=?,lon=? WHERE id=?";
+		 try {
+			
+			pstmt = conexao.prepareStatement(query);
+			pstmt.setDouble(1, cordenada.getLat()); // set input parameter 1
+		    pstmt.setDouble(2, cordenada.getLon()); // set input parameter 2
+		    pstmt.setInt(3, cordenada.getID());
+		    pstmt.executeQuery(); // execute insert statement
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} finally {
+			fecharConhexao(conexao, pstmt, rs);
+		} // create a statement
+		
+		return true;
 	}
 	
 	

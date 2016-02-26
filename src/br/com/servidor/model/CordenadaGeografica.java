@@ -51,5 +51,9 @@ public class CordenadaGeografica {
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
+	
+	public String getIdString() {
+		return ID + "";
+	}
 
 }

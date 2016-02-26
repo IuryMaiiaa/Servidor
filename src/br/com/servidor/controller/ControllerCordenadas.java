@@ -16,8 +16,8 @@ public class ControllerCordenadas {
 		if(CordenadaGeograficaDAO.getInstance().add(cordenada)) {
 			CordenadaGeografica aux = CordenadaGeograficaDAO.getInstance()
 							.getCordenada(cordenada.getLat(),cordenada.getLon());
-			ElasticSearchDAO es = new ElasticSearchDAO();
-			es.adicionarCordenada(aux);
+			System.out.println(aux.getID() + " " + aux.getLat());
+			ElasticSearchDAO.getInstance().adicionarCordenada(aux);
 		}
 		
 	}
@@ -25,6 +25,13 @@ public class ControllerCordenadas {
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
 		ElasticSearchDAO es = new ElasticSearchDAO();
 		return es.listarProximas(cordenada,raio);
+	}
+
+	public void update(CordenadaGeografica cordenada) {
+		if(CordenadaGeograficaDAO.getInstance().update(cordenada)) {
+			ElasticSearchDAO.getInstance().updateCordenada(cordenada);
+		}
+		
 	}
 
 }
