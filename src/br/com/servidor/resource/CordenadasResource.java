@@ -13,6 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
+import com.sun.jersey.core.impl.provider.header.NewCookieProvider;
+
 import br.com.servidor.controller.ControllerCordenadas;
 import br.com.servidor.model.CordenadaGeografica;
 
@@ -55,6 +57,15 @@ public class CordenadasResource {
 	@Produces("aplication/json")
 	public ArrayList<CordenadaGeografica> listarCordenadasProximas(CordenadaGeografica cordenada,int raio) {
 		return controllerCordenadas.listarProximas(cordenada,raio);
+	}
+	
+	@GET
+	@Path("/addCordenada")
+	public void adicionarCordenada() {
+		CordenadaGeografica cordenada = new CordenadaGeografica();
+		cordenada.setLat(20.10);
+		cordenada.setLon(30.235);
+		controllerCordenadas.save(cordenada);
 	}
 
 }

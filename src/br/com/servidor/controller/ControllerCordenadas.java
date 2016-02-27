@@ -2,11 +2,14 @@ package br.com.servidor.controller;
 
 import java.util.ArrayList;
 
-import br.com.servidor.dao.CordenadaGeograficaDAO;
-import br.com.servidor.dao.ElasticSearchDAO;
 import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.repository.CordenadaGeogaficaRepository;
+import br.com.servidor.repository.CordenadaGeograficaDAO;
+import br.com.servidor.repository.ElasticSearchDAO;
+import br.com.servidor.repository.Impl.CordenadaGeograficaRepositoryImpl;
 
 public class ControllerCordenadas {
+	private CordenadaGeogaficaRepository cordenadaRepository = new CordenadaGeograficaRepositoryImpl();
 	
 	public ArrayList<CordenadaGeografica> listarTodos() {
 		return CordenadaGeograficaDAO.getInstance().listarTodasCordenada();
@@ -32,6 +35,10 @@ public class ControllerCordenadas {
 			ElasticSearchDAO.getInstance().updateCordenada(cordenada);
 		}
 		
+	}
+	
+	public void save(CordenadaGeografica cordenada) {
+		cordenadaRepository.save(cordenada);
 	}
 
 }
