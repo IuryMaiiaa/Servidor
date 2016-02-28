@@ -36,17 +36,23 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 
 	@Override
 	public void save(T entity) {
+		this.em.getTransaction().begin();
 		this.em.persist(entity);
+		this.em.getTransaction().commit();
 	}
 
 	@Override
 	public void update(T entity) {
+		this.em.getTransaction().begin();
 		this.em.merge(entity);
+		this.em.getTransaction().commit();
 	}
 
 	@Override
 	public void delete(T entity) {
+		this.em.getTransaction().begin();
 		em.remove(em.merge(entity));
+		this.em.getTransaction().commit();
 	}
 
 	@Override
@@ -123,6 +129,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 	}
 
 	private void setNamedParameters(Query q, Map<String, Object> namedParams) {
+		this.em.getTransaction().begin();
 		if (namedParams != null) {
 			log.debug("Named parameters: {}", namedParams);
 			Set<String> keys = namedParams.keySet();
@@ -130,6 +137,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 				q.setParameter(key, namedParams.get(key));
 			}
 		}
+		this.em.getTransaction().commit();
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @Entity
-@Table(name="CordenadaGeografica")
+@Table(uniqueConstraints= @UniqueConstraint(columnNames = {"lat", "lon"}),name="CordenadaGeografica")
 @XmlRootElement
 public class CordenadaGeografica {
 	
@@ -29,8 +30,10 @@ public class CordenadaGeografica {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	
-	
+	@Column(name="lat")
 	private double lat;
+	
+	@Column(name="lon")
 	private double lon;
 	
 	
