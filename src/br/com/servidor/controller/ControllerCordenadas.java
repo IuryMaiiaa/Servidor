@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import br.com.servidor.model.CordenadaGeografica;
 import br.com.servidor.repository.CordenadaGeogaficaRepository;
-import br.com.servidor.repository.CordenadaGeograficaDAO;
 import br.com.servidor.repository.ElasticSearchDAO;
 import br.com.servidor.repository.Impl.CordenadaGeograficaRepositoryImpl;
 
@@ -12,15 +11,14 @@ public class ControllerCordenadas {
 	private CordenadaGeogaficaRepository cordenadaRepository = new CordenadaGeograficaRepositoryImpl();
 	
 	public ArrayList<CordenadaGeografica> listarTodos() {
-		return CordenadaGeograficaDAO.getInstance().listarTodasCordenada();
+		return (ArrayList<CordenadaGeografica>) cordenadaRepository.find(CordenadaGeografica.class);
 	}
 
 	public void add(CordenadaGeografica cordenada) {
-		if(CordenadaGeograficaDAO.getInstance().add(cordenada)) {
-			CordenadaGeografica aux = CordenadaGeograficaDAO.getInstance()
-							.getCordenada(cordenada.getLat(),cordenada.getLon());
-			System.out.println(aux.getID() + " " + aux.getLat());
-			ElasticSearchDAO.getInstance().adicionarCordenada(aux);
+		cordenadaRepository.save(cordenada);
+		cordenada = cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon());
+		if(cordenada != null) {
+			ElasticSearchDAO.getInstance().adicionarCordenada(cordenada);
 		}
 		
 	}
@@ -31,14 +29,8 @@ public class ControllerCordenadas {
 	}
 
 	public void update(CordenadaGeografica cordenada) {
-		if(CordenadaGeograficaDAO.getInstance().update(cordenada)) {
-			ElasticSearchDAO.getInstance().updateCordenada(cordenada);
-		}
-		
-	}
-	
-	public void save(CordenadaGeografica cordenada) {
-		cordenadaRepository.save(cordenada);
+		cordenadaRepository.update(cordenada);
+		ElasticSearchDAO.getInstance().updateCordenada(cordenada);
 	}
 
 }

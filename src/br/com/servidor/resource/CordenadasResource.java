@@ -58,14 +58,5 @@ public class CordenadasResource {
 	public ArrayList<CordenadaGeografica> listarCordenadasProximas(CordenadaGeografica cordenada,int raio) {
 		return controllerCordenadas.listarProximas(cordenada,raio);
 	}
-	
-	@GET
-	@Path("/addCordenada")
-	public void adicionarCordenada() {
-		CordenadaGeografica cordenada = new CordenadaGeografica();
-		cordenada.setLat(20.10);
-		cordenada.setLon(30.235);
-		controllerCordenadas.save(cordenada);
-	}
 
 }
