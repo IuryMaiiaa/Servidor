@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Etapa {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_e")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	

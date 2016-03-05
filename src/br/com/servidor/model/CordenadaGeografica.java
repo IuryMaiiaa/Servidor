@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CordenadaGeografica {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "id_c")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	
