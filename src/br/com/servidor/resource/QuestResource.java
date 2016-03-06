@@ -5,19 +5,23 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-import br.com.servidor.controller.ControllerQuestsLocalizadas;
+import br.com.servidor.controller.QuestController;
 import br.com.servidor.model.QuestGeolocalizada;
 
 
 @Path("/Quest")
 public class QuestResource {
-	private ControllerQuestsLocalizadas controllerQuests;
+	private QuestController Questcontroller;
+	
+	public QuestResource() {
+		Questcontroller = new QuestController();
+	}
 	
 	@POST
 	@Path("/addQuest")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrarNovaQuest(QuestGeolocalizada quest) {
-		controllerQuests.adicionarNovaQuest(quest);
+		Questcontroller.adicionarNovaQuest(quest);
 	}
 
 }

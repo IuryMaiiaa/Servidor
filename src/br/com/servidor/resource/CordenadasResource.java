@@ -16,16 +16,16 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.core.impl.provider.header.NewCookieProvider;
 
-import br.com.servidor.controller.ControllerCordenadas;
+import br.com.servidor.controller.CordenadaController;
 import br.com.servidor.model.CordenadaGeografica;
 
 
 @Path("/cordenada")
 public class CordenadasResource {
-	private ControllerCordenadas controllerCordenadas;
+	private CordenadaController controllerCordenadas;
 	
 	public CordenadasResource() {
-		controllerCordenadas = new ControllerCordenadas();
+		controllerCordenadas = new CordenadaController();
 	}
 	
 	@GET

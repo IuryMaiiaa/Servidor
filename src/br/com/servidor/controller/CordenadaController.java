@@ -7,7 +7,7 @@ import br.com.servidor.repository.CordenadaGeogaficaRepository;
 import br.com.servidor.repository.ElasticSearchDAO;
 import br.com.servidor.repository.Impl.CordenadaGeograficaRepositoryImpl;
 
-public class ControllerCordenadas {
+public class CordenadaController {
 	private CordenadaGeogaficaRepository cordenadaRepository = new CordenadaGeograficaRepositoryImpl();
 	
 	public ArrayList<CordenadaGeografica> listarTodos() {
