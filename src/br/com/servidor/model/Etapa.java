@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,6 +29,18 @@ public class Etapa {
 	@Column(name="palavraChave")
 	private String palavraChave;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_quest")
+	private QuestGeolocalizada questGeolocalizada;
+	
+	public QuestGeolocalizada getQuestGeolocalizada() {
+		return questGeolocalizada;
+	}
+
+	public void setQuestGeolocalizada(QuestGeolocalizada questGeolocalizada) {
+		this.questGeolocalizada = questGeolocalizada;
+	}
+
 	public boolean comparaPalavraChave(String chave) {
 		if(chave.equals(palavraChave)) {
 			return true;

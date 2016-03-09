@@ -1,6 +1,7 @@
 package br.com.servidor.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,11 +30,27 @@ public class QuestGeolocalizada {
 	private String nome;
 	
 	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
-	private ArrayList<Etapa> etapas;
+	private List<Etapa> etapas;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cordenada")
 	private CordenadaGeografica cordenada;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setEtapas(List<Etapa> etapas) {
+		this.etapas = etapas;
+	}
 	
 	public void addNovaEtapa(Etapa etapa) {
 		etapas.add(etapa);
@@ -59,12 +76,8 @@ public class QuestGeolocalizada {
 		this.nome = nome;
 	}
 
-	public ArrayList<Etapa> getEtapas() {
+	public List<Etapa> getEtapas() {
 		return etapas;
-	}
-
-	public void setEtapas(ArrayList<Etapa> etapas) {
-		this.etapas = etapas;
 	}
 
 	public CordenadaGeografica getCordenada() {

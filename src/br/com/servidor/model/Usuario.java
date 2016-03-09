@@ -1,6 +1,7 @@
 package br.com.servidor.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class Usuario {
 	private String cep;
 	
 	@OneToMany(mappedBy = "usuario", targetEntity = QuestGeolocalizada.class, fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
-	private ArrayList<QuestGeolocalizada> minhasQuests;
+	private List<QuestGeolocalizada> minhasQuests;
 	
 	public void addQuest(QuestGeolocalizada quest) {
 		minhasQuests.add(quest);
@@ -54,7 +55,7 @@ public class Usuario {
 		minhasQuests.remove(quest);
 	}
 
-	public ArrayList<QuestGeolocalizada> getMinhasQuests() {
+	public List<QuestGeolocalizada> getMinhasQuests() {
 		return minhasQuests;
 	}
 
