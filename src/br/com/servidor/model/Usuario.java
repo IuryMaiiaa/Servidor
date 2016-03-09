@@ -59,7 +59,7 @@ public class Usuario {
 		return minhasQuests;
 	}
 
-	public void setMinhasQuests(ArrayList<QuestGeolocalizada> minhasQuests) {
+	public void setMinhasQuests(List<QuestGeolocalizada> minhasQuests) {
 		this.minhasQuests = minhasQuests;
 	}
 

@@ -22,6 +22,7 @@ public class UsuarioResource {
 	@Path("/addUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrarNovoUsuario(Usuario usuario) {
+		System.out.println("chegoaqui");
 		usuarioController.addUsuario(usuario);
 	}
 	
