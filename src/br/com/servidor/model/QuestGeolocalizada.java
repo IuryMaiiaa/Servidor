@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name="questGeolocalizada")
+@Table(name="questgeolocalizada")
 @XmlRootElement
 public class QuestGeolocalizada {
 	
@@ -29,7 +29,7 @@ public class QuestGeolocalizada {
 	@Column(name="nome")
 	private String nome;
 	
-	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.LAZY,cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<Etapa> etapas;
 	
 	@ManyToOne

@@ -38,11 +38,14 @@ public class CordenadaGeograficaRepositoryImpl extends
 		params.put("lat", lat);
 		params.put("lon", lon);
 		
-		CordenadaGeografica cordenada = (CordenadaGeografica) find(QueryType.JPQL,
-				"Select * from cordenadageografica where lat=:lat and lon=:lon", params);
+		List<CordenadaGeografica> result =  find(QueryType.JPQL,
+				"from CordenadaGeografica where lat=:lat and lon=:lon", params);
 		
+		if(result != null && !result.isEmpty()) {
+			return result.get(0);
+		}
 
-		return cordenada;
+		return null;
 	}
 
 }

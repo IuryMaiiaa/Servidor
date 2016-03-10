@@ -15,12 +15,17 @@ public class CordenadaController {
 	}
 
 	public void add(CordenadaGeografica cordenada) {
-		cordenadaRepository.save(cordenada);
-		cordenada = cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon());
-		if(cordenada != null) {
-			ElasticSearchDAO.getInstance().adicionarCordenada(cordenada);
+		if (cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon()) == null) {
+			cordenadaRepository.save(cordenada);
+			cordenada = cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon());
+			if(cordenada != null) {
+				ElasticSearchDAO.getInstance().adicionarCordenada(cordenada);
+			}
 		}
-		
+	}
+	
+	public CordenadaGeografica find(double lat, double lon) {
+		return cordenadaRepository.getCordenada(lat,lon);
 	}
 
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {

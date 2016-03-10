@@ -21,14 +21,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @Entity
-@Table(uniqueConstraints= @UniqueConstraint(columnNames = {"lat", "lon"}),name="CordenadaGeografica")
+@Table(uniqueConstraints= @UniqueConstraint(columnNames = {"lat", "lon"}),name="cordenadageografica")
 @XmlRootElement
 public class CordenadaGeografica {
 	
 	@Id
 	@Column(name = "id_c")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ID;
+	private int id;
 	
 	@Column(name="lat")
 	private double lat;
@@ -47,12 +47,12 @@ public class CordenadaGeografica {
 	
 	
 	public int getID() {
-		return ID;
+		return id;
 	}
 	
 	
 	public void setID(int iD) {
-		ID = iD;
+		id = iD;
 	}
 	
 	
@@ -70,7 +70,7 @@ public class CordenadaGeografica {
 	}
 	
 	public String getIdString() {
-		return ID + "";
+		return id + "";
 	}
 
 }

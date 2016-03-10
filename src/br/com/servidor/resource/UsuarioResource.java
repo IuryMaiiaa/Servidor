@@ -9,20 +9,24 @@ import javax.ws.rs.core.MediaType;
 
 import br.com.servidor.controller.UsuarioController;
 import br.com.servidor.model.Usuario;
+import br.com.servidor.utilites.UsuarioReferenciaCircular;
 
 @Path("/Usuario")
 public class UsuarioResource {
 	private UsuarioController usuarioController;
+	private UsuarioReferenciaCircular usuarioReferenciaCircular;
 
 	public UsuarioResource() {
 		usuarioController = new UsuarioController();
+		usuarioReferenciaCircular = new UsuarioReferenciaCircular();
 	}
 	
 	@POST
 	@Path("/addUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrarNovoUsuario(Usuario usuario) {
-		System.out.println("chegoaqui");
+		System.out.println("chego aqui");
+		usuario = usuarioReferenciaCircular.adicionandoReferenciasCirculares(usuario);
 		usuarioController.addUsuario(usuario);
 	}
 	
