@@ -20,7 +20,7 @@ import br.com.servidor.controller.CordenadaController;
 import br.com.servidor.model.CordenadaGeografica;
 
 
-@Path("/cordenada")
+@Path("/Cordenada")
 public class CordenadasResource {
 	private CordenadaController controllerCordenadas;
 	
