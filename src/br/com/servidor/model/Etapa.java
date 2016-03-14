@@ -20,6 +20,9 @@ public class Etapa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@Column(name="posicao")
+	private int posicao;
+
 	@Column(name="descricao")
 	private String descricao;
 	
@@ -32,6 +35,14 @@ public class Etapa {
 	@ManyToOne
 	@JoinColumn(name = "id_quest")
 	private QuestGeolocalizada questGeolocalizada;
+	
+	public int getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(int posicao) {
+		this.posicao = posicao;
+	}
 	
 	public QuestGeolocalizada getQuestGeolocalizada() {
 		return questGeolocalizada;

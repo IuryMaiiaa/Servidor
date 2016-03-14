@@ -36,4 +36,21 @@ public class UsuarioResource {
 	public Usuario getUsuario(String email,String senha) {
 		return usuarioController.getUsuario(email, senha);
 	}
+	
+	@POST
+	@Path("/deletarUsuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void deletarUsuario(Usuario usuario) {
+		usuarioController.deleteUsuario(usuario);
+	}
+	
+	
+	@POST
+	@Path("/atualizarUsuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void atualizarUsuario(Usuario usuario) {
+		usuarioController.updateUsuario(usuario);
+	}
+	
+	
 }

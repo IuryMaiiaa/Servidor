@@ -23,5 +23,19 @@ public class QuestResource {
 	public void cadastrarNovaQuest(QuestGeolocalizada quest) {
 		Questcontroller.adicionarNovaQuest(quest);
 	}
+	
+	@POST
+	@Path("/removeQuest")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void removerQuest(QuestGeolocalizada quest) {
+		Questcontroller.deleteQuest(quest);
+	}
+	
+	@POST
+	@Path("/updateQuest")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void atualizarQuest(QuestGeolocalizada quest) {
+		Questcontroller.updateQuest(quest);
+	}
 
 }
