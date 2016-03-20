@@ -34,21 +34,25 @@ public class UsuarioResource {
 	@Path("/getUsuario")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario getUsuario(String email,String senha) {
-		return usuarioController.getUsuario(email, senha);
+		Usuario usuario = usuarioController.getUsuario(email, senha);
+		usuario = usuarioReferenciaCircular.removendoReferenciasCirculares(usuario);
+		return usuario;
 	}
 	
 	@POST
-	@Path("/deletarUsuario")
+	@Path("/removeUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void deletarUsuario(Usuario usuario) {
+		usuario = usuarioReferenciaCircular.adicionandoReferenciasCirculares(usuario);
 		usuarioController.deleteUsuario(usuario);
 	}
 	
 	
 	@POST
-	@Path("/atualizarUsuario")
+	@Path("/updateUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void atualizarUsuario(Usuario usuario) {
+		usuario = usuarioReferenciaCircular.adicionandoReferenciasCirculares(usuario);
 		usuarioController.updateUsuario(usuario);
 	}
 	

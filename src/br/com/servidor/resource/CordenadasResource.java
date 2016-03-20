@@ -36,21 +36,24 @@ public class CordenadasResource {
 	}
 	
 	@POST
-	@Path("/adicionarCordenada")
-	public void adicionarCordenada(@QueryParam("lat") String lat,@QueryParam("lon") String lon) {
-		controllerCordenadas.add(new CordenadaGeografica(Double.valueOf(lat),Double.valueOf(lon)));
+	@Path("/addCordenada")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void adicionarCordenada(CordenadaGeografica cordenadaGeografica) {
+		controllerCordenadas.add(cordenadaGeografica);
 	}
 	
 	@POST
-	@Path("/atualizarCordenada")
-	public void atualizarCordenada(@QueryParam("lat") String lat,@QueryParam("lon") String lon,@QueryParam("id") String id) {
-		System.out.println("chego");
-		System.out.println(" lat " + lat + " lon " + lon);
-		CordenadaGeografica cordenada = new CordenadaGeografica();
-		cordenada.setID(Integer.valueOf(id));
-		cordenada.setLat(Double.valueOf(lat));
-		cordenada.setLon(Double.valueOf(lon));
+	@Path("/updateCordenada")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void atualizarCordenada(CordenadaGeografica cordenada) {
 		controllerCordenadas.update(cordenada);
+	}
+	
+	@POST
+	@Path("/removeCordenada")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void removerCordenada(CordenadaGeografica cordenada) {
+		controllerCordenadas.remove(cordenada);
 	}
 	
 	@GET

@@ -130,4 +130,9 @@ public class ElasticSearchDAO {
 		
 	}
 
+	public void deletarCordenada(CordenadaGeografica cordenada) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

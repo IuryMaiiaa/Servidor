@@ -38,4 +38,10 @@ public class CordenadaController {
 		ElasticSearchDAO.getInstance().updateCordenada(cordenada);
 	}
 
+	public void remove(CordenadaGeografica cordenada) {
+		cordenadaRepository.delete(cordenada);
+		ElasticSearchDAO.getInstance().deletarCordenada(cordenada);
+		
+	}
+
 }
