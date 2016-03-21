@@ -126,12 +126,33 @@ public class ElasticSearchDAO {
 	}
 
 	public void updateCordenada(CordenadaGeografica cordenada) {
-		// TODO Auto-generated method stub
+		Client client = ESClientProvider.instance().getClient();
+		System.out.println(putJsonDocument(cordenada.getID(), cordenada.getLat(), cordenada.getLon()).toString());
+		try {
+			client.prepareUpdate("cordenadas", "cordenada",Integer.toString(cordenada.getID()))
+						.setSource(putJsonDocument(cordenada.getID(), cordenada.getLat(), cordenada.getLon()).toString().getBytes())
+						.execute().actionGet();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(cordenada.getID());
+		getDocument(client, Integer.toString( cordenada.getID()));
 		
 	}
 
 	public void deletarCordenada(CordenadaGeografica cordenada) {
-		// TODO Auto-generated method stub
+		Client client = ESClientProvider.instance().getClient();
+		System.out.println(putJsonDocument(cordenada.getID(), cordenada.getLat(), cordenada.getLon()).toString());
+		try {
+			client.prepareDelete("cordenadas", "cordenada",Integer.toString(cordenada.getID()))
+						.execute().actionGet();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(cordenada.getID());
+		getDocument(client, Integer.toString( cordenada.getID()));
 		
 	}
 
