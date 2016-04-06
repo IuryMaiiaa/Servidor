@@ -16,10 +16,12 @@ public class UsuarioController {
 	}
 	
 	public void addUsuario(Usuario usuario) {
-		for(QuestGeolocalizada quest : usuario.getMinhasQuests()){
-			cordenadaController.add(quest.getCordenada());
-			quest.setCordenada(cordenadaController.find(quest.getCordenada().getLat(),
-														quest.getCordenada().getLon()));	
+		if(usuario.getMinhasQuests() != null) {
+			for(QuestGeolocalizada quest : usuario.getMinhasQuests()){
+				cordenadaController.add(quest.getCordenada());
+				quest.setCordenada(cordenadaController.find(quest.getCordenada().getLat(),
+															quest.getCordenada().getLon()));	
+			}
 		}
 		usuarioRepository.save(usuario);
 	}
