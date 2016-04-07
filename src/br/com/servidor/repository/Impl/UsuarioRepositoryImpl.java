@@ -1,6 +1,7 @@
 package br.com.servidor.repository.Impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import enumeration.QueryType;
@@ -16,11 +17,15 @@ public class UsuarioRepositoryImpl extends JpaGenericRepositoryImpl<Usuario> imp
 		params.put("email", email);
 		params.put("senha", senha);
 		
-		Usuario usuario = (Usuario) find(QueryType.JPQL,
-				"Select * from usuario where email=:email and senha=:senha", params);
+		List<Usuario> result  = find(QueryType.JPQL,
+				"from Usuario where email=:email and senha=:senha", params);
+		
+		if(result != null && !result.isEmpty()) {
+			return result.get(0);
+		}
 		
 
-		return usuario;
+		return null;
 	}
 
 }
