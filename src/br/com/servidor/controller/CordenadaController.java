@@ -13,6 +13,7 @@ public class CordenadaController {
 	public ArrayList<CordenadaGeografica> listarTodos() {
 		return (ArrayList<CordenadaGeografica>) cordenadaRepository.find(CordenadaGeografica.class);
 	}
+//D:
 
 	public void add(CordenadaGeografica cordenada) {
 		if (cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon()) == null) {
