@@ -29,6 +29,9 @@ public class QuestGeolocalizada {
 	@Column(name="nome")
 	private String nome;
 	
+	@Column(name="descricao")
+	private String descricao;
+	
 	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<Etapa> etapas;
 	
@@ -39,6 +42,15 @@ public class QuestGeolocalizada {
 	@ManyToOne
 	@JoinColumn(name = "id_cordenada")
 	private CordenadaGeografica cordenada;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	
 	public Usuario getUsuario() {
 		return usuario;
