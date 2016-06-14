@@ -43,6 +43,10 @@ public class QuestGeolocalizada {
 	@JoinColumn(name = "id_cordenada")
 	private CordenadaGeografica cordenada;
 	
+	public QuestGeolocalizada() {
+        etapas = new ArrayList<Etapa>();
+    }
+	
 	public String getDescricao() {
 		return descricao;
 	}

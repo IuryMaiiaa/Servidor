@@ -36,8 +36,10 @@ public class UsuarioResource {
 	@Path("/getUsuario/{email}/{senha}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario getUsuario(@PathParam(value = "email") String email,@PathParam(value = "senha") String senha) {
+		
 		Usuario usuario = usuarioController.getUsuario(email, senha);
 		usuario = usuarioReferenciaCircular.removendoReferenciasCirculares(usuario);
+		System.out.println("usuario:" + usuario);
 		return usuario;
 	}
 	
