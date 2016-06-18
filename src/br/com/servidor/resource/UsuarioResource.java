@@ -27,7 +27,6 @@ public class UsuarioResource {
 	@Path("/addUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrarNovoUsuario(Usuario usuario) {
-		System.out.println("chego aqui");
 		usuario = usuarioReferenciaCircular.adicionandoReferenciasCirculares(usuario);
 		usuarioController.addUsuario(usuario);
 	}
