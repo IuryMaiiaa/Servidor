@@ -17,8 +17,8 @@ public class QuestController {
 	}
 	
 	public void adicionarNovaQuest(QuestGeolocalizada quest) {
-		CordenadaGeografica cordenada = cordenadaRepository.
-								getCordenada(quest.getCordenada().getLat(), quest.getCordenada().getLon());
+		System.out.println(quest.getCordenada().getLat() + "" + quest.getCordenada().getLon());
+		CordenadaGeografica cordenada = cordenadaRepository.getCordenada(quest.getCordenada().getLat(), quest.getCordenada().getLon());
 		if(cordenada == null) {
 			questRepository.save(quest);
 		} else {

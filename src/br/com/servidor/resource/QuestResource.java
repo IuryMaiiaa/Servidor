@@ -24,7 +24,6 @@ public class QuestResource {
 	@Path("/addQuest")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void cadastrarNovaQuest(QuestGeolocalizada quest) {
-		System.out.println("chego aqui");
 		quest = questReferenciaCircular.adicionarReferencaisCirculares(quest);
 		Questcontroller.adicionarNovaQuest(quest);
 	}
