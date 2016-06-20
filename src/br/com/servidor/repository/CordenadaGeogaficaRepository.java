@@ -11,4 +11,6 @@ public interface CordenadaGeogaficaRepository extends
 		GenericRepository<CordenadaGeografica> {
 
 	public CordenadaGeografica getCordenada(double lat, double lon);
+	
+	public void addCordenada(CordenadaGeografica cordenada);
 }

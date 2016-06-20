@@ -48,4 +48,12 @@ public class CordenadaGeograficaRepositoryImpl extends
 		return null;
 	}
 
+	@Override
+	public void addCordenada(CordenadaGeografica cordenada) {
+		CordenadaGeografica aux = getCordenada(cordenada.getLat(), cordenada.getLon());
+		if(aux==null) {
+			this.save(cordenada);
+		}
+	}
+
 }
