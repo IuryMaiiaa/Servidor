@@ -28,8 +28,8 @@ public class UsuarioReferenciaCircular {
 		if (usuario != null) { 
 			if(usuario.getMinhasQuests() != null) {
 	            for(QuestGeolocalizada quest : usuario.getMinhasQuests()) {
-	                    quest.setUsuario(null);
-	                    quest = questsReferenciaCircular.removendoReferenciasCirculares(quest);
+	                    quest.setUsuario(usuario);
+	                    quest = questsReferenciaCircular.adicionarReferencaisCirculares(quest);
 	            }
 	        }
 		}

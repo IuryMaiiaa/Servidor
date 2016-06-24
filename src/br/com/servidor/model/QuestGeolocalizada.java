@@ -32,7 +32,7 @@ public class QuestGeolocalizada {
 	@Column(name="descricao")
 	private String descricao;
 	
-	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "questGeolocalizada", targetEntity = Etapa.class, fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<Etapa> etapas;
 	
 	@ManyToOne

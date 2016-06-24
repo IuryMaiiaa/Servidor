@@ -44,7 +44,7 @@ public class Usuario {
 	@Column(name = "cep")
 	private String cep;
 	
-	@OneToMany(mappedBy = "usuario", targetEntity = QuestGeolocalizada.class, fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", targetEntity = QuestGeolocalizada.class, fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<QuestGeolocalizada> minhasQuests;
 	
 	public void addQuest(QuestGeolocalizada quest) {

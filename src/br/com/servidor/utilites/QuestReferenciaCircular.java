@@ -18,5 +18,13 @@ public class QuestReferenciaCircular {
 		}
 		return quest;
 	}
+	
+	public QuestGeolocalizada removendoReferenciaCircularListUsuario(QuestGeolocalizada quest) {
+		for(Etapa etapa: quest.getEtapas()) {
+			etapa.setQuestGeolocalizada(null);
+		}
+		quest.getUsuario().setMinhasQuests(null);
+		return quest;
+	}
 
 }
