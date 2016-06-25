@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import org.apache.lucene.queryparser.xml.QueryBuilder;
 import org.elasticsearch.*;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -12,7 +13,10 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.geo.GeoDistance;
 import org.elasticsearch.common.geo.GeoPoint;
+import org.elasticsearch.common.unit.DistanceUnit;
+import org.elasticsearch.index.query.GeoDistanceQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
@@ -112,12 +116,16 @@ public class ElasticSearchDAO {
 
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
 		Client client = ESClientProvider.instance().getClient();
+		GeoDistanceQueryBuilder qb = new GeoDistanceQueryBuilder("pin.location")
+													.point(40, -70)                                 
+			    									.distance(200, DistanceUnit.KILOMETERS)         
+			    									.optimizeBbox("memory")                         
+			    									.geoDistance(GeoDistance.ARC);
+		
 		SearchResponse response = client.prepareSearch("cordenadas")
 		        .setTypes("cordenada")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-		        .setQuery(QueryBuilders.termQuery("multi", "test"))                 // Query
-		        .setPostFilter(QueryBuilders.geoDistanceQuery("GeoPoint").distance("20"))     // Filter
-		        .setFrom(0).setSize(60).setExplain(true)
+		        .setQuery(qb)                 // Query
 		        .execute()
 		        .actionGet();
 		
