@@ -1,5 +1,7 @@
 package br.com.servidor.controller;
 
+import java.util.ArrayList;
+
 import br.com.servidor.model.CordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
 import br.com.servidor.repository.CordenadaGeogaficaRepository;
@@ -34,6 +36,17 @@ public class QuestController {
 	
 	public void deleteQuest(QuestGeolocalizada quest) {
 		questRepository.delete(quest);
+	}
+
+	public ArrayList<QuestGeolocalizada> listarTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<QuestGeolocalizada> listarProximas(
+			CordenadaGeografica cordenada, int raio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

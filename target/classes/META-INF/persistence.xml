@@ -9,7 +9,10 @@
 	<persistence-unit name="Servidor" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		
-		<class>br.com.servidor.model.*</class>
+		<class>br.com.servidor.model.CordenadaGeografica</class>
+		<class>br.com.servidor.model.Etapa</class>
+		<class>br.com.servidor.model.QuestGeolocalizada</class>
+		<class>br.com.servidor.model.Usuario</class>
 		
 		  <properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

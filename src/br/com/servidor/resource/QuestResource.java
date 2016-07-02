@@ -1,11 +1,16 @@
 package br.com.servidor.resource;
 
+import java.util.ArrayList;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.servidor.controller.QuestController;
+import br.com.servidor.model.CordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
 import br.com.servidor.utilites.QuestReferenciaCircular;
 
@@ -18,6 +23,13 @@ public class QuestResource {
 	public QuestResource() {
 		Questcontroller = new QuestController();
 		questReferenciaCircular = new QuestReferenciaCircular();
+	}
+	
+	@GET
+	@Path("/listarTodos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<QuestGeolocalizada> listarTodasCordenadas() {
+		return Questcontroller.listarTodos();
 	}
 	
 	@POST
@@ -42,6 +54,13 @@ public class QuestResource {
 	public void atualizarQuest(QuestGeolocalizada quest) {
 		quest = questReferenciaCircular.adicionarReferencaisCirculares(quest);
 		Questcontroller.updateQuest(quest);
+	}
+	
+	@GET
+	@Path("/listarProximas")
+	@Produces("aplication/json")
+	public ArrayList<QuestGeolocalizada> listarCordenadasProximas(CordenadaGeografica cordenada,int raio) {
+		return Questcontroller.listarProximas(cordenada,raio);
 	}
 
 }
