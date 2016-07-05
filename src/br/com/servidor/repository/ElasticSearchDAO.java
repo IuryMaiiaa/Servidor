@@ -118,7 +118,7 @@ public class ElasticSearchDAO {
 		Client client = ESClientProvider.instance().getClient();
 		GeoDistanceQueryBuilder qb = new GeoDistanceQueryBuilder("pin.location")
 													.point(40, -70)                                 
-			    									.distance(200, DistanceUnit.KILOMETERS)         
+			    									.distance(raio, DistanceUnit.METERS)         
 			    									.optimizeBbox("memory")                         
 			    									.geoDistance(GeoDistance.ARC);
 		

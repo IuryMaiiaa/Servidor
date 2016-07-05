@@ -30,7 +30,7 @@ public class CordenadaController {
 
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
 		ElasticSearchDAO es = new ElasticSearchDAO();
-		return es.listarProximas(cordenada,raio);
+		return es.getInstance().listarProximas(cordenada,raio);
 	}
 
 	public void update(CordenadaGeografica cordenada) {

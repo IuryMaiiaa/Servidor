@@ -11,17 +11,17 @@ import br.com.servidor.repository.Impl.QuestGeolocalizadaRepositoryImpl;
 
 public class QuestController {
 	private QuestGeolocalizadaRepository questRepository;
-	private CordenadaGeogaficaRepository cordenadaRepository;
+	private CordenadaController cordenadaController;
 	
 	public QuestController() {
 		questRepository = new QuestGeolocalizadaRepositoryImpl();
-		cordenadaRepository = new CordenadaGeograficaRepositoryImpl();
+		cordenadaController = new CordenadaController();
 	}
 	
 	public void adicionarNovaQuest(QuestGeolocalizada quest) {
 		System.out.println(quest.getCordenada().getLat() + " " + quest.getCordenada().getLon());
-		cordenadaRepository.addCordenada(quest.getCordenada());
-		CordenadaGeografica cordenada = cordenadaRepository.getCordenada(quest.getCordenada().getLat(), quest.getCordenada().getLon());
+		cordenadaController.add(quest.getCordenada());
+		CordenadaGeografica cordenada = cordenadaController.find(quest.getCordenada().getLat(), quest.getCordenada().getLon());
 		if(cordenada == null) {
 			questRepository.save(quest);
 		} else {
