@@ -1,11 +1,13 @@
 package br.com.servidor.resource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -57,10 +59,25 @@ public class QuestResource {
 	}
 	
 	@GET
-	@Path("/listarProximas")
-	@Produces("aplication/json")
-	public ArrayList<QuestGeolocalizada> listarCordenadasProximas(CordenadaGeografica cordenada,int raio) {
-		return Questcontroller.listarProximas(cordenada,raio);
+	@Path("/listarProximas/{lat}/{lon}/{raio}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<QuestGeolocalizada> listarCordenadasProximas(@PathParam(value = "lat") String lat,
+			@PathParam(value = "lon") String lon, @PathParam(value = "raio") String raio) {
+		CordenadaGeografica cordenada = new CordenadaGeografica();
+		System.out.println(lat + " " + lon + " " + " " + raio);
+		cordenada.setLat(Float.parseFloat(lat));
+		cordenada.setLon(Float.parseFloat(lon));
+		List<QuestGeolocalizada> quests = Questcontroller.listarProximas(cordenada,Integer.parseInt(raio));
+		if(quests!=null && !quests.isEmpty()) {
+			for(QuestGeolocalizada quest : quests) {
+				if(quest!=null) {
+					quest = questReferenciaCircular.removendoReferenciaCircularListUsuario(quest);
+				}
+			}
+			return quests;
+		}
+		return null;
+		
 	}
 
 }

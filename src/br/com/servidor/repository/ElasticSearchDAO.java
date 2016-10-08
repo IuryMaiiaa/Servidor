@@ -21,6 +21,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
 import org.elasticsearch.script.Script;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+
+import com.google.gson.Gson;
 
 import br.com.servidor.factory.ESClientProvider;
 import br.com.servidor.model.CordenadaGeografica;
@@ -72,7 +76,7 @@ public class ElasticSearchDAO {
 
 	public static void getDocument(Client client, String id) {
 
-		GetResponse getResponse = client.prepareGet(index, type, id).execute()
+		GetResponse getResponse = client.prepareGet("cordenadas", "cordenada", id).execute()
 				.actionGet();
 		Map<String, Object> source = getResponse.getSource();
 
@@ -104,21 +108,45 @@ public class ElasticSearchDAO {
 	}
 
 	public void adicionarCordenada(CordenadaGeografica aux) {
-		
+		Gson gson = new Gson();
 		Client client = ESClientProvider.instance().getClient();
 		System.out.println(putJsonDocument(aux.getID(), aux.getLat(), aux.getLon()).toString());
+		/*client.admin().indices().preparePutMapping("cordenadas")
+								.setType("cordenada")
+								.setSource("{\n" +                              
+						                "  \"GeoPoint\": {\n" +
+						                "      \"type\": \"geo_point\"\n" +
+						                "  }\n" +
+						                "}").get();
+		
+		*/
+		
 		client.prepareIndex("cordenadas", "cordenada",Integer.toString(aux.getID()))
 			.setSource(putJsonDocument(aux.getID(), aux.getLat(), aux.getLon())).execute()
 			.actionGet();
 		System.out.println(aux.getID());
-		getDocument(client, Integer.toString( aux.getID()));
+		getDocument(client, Integer.toString(aux.getID()));
 	}
 
 	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
 		Client client = ESClientProvider.instance().getClient();
-		GeoDistanceQueryBuilder qb = new GeoDistanceQueryBuilder("pin.location")
-													.point(40, -70)                                 
-			    									.distance(raio, DistanceUnit.METERS)         
+		ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+		Gson gson = new Gson();
+		 //getDocument(client, "1");
+		/*client.admin().indices().prepareCreate("cordenadas").get();
+		client.admin().indices().preparePutMapping("cordenadas")
+		.setType("cordenada")
+		.setSource("{\n" +                              
+                "  \"properties\": {\n" +
+				"       \"GeoPoint\": {\n"  +      
+                "      		\"type\": \"geo_point\"\n" +
+                "  		}\n" +
+                "  }\n" +
+                "}").get();
+          */
+		GeoDistanceQueryBuilder qb = new GeoDistanceQueryBuilder("GeoPoint")
+													.point(cordenada.getLat(), cordenada.getLon())                                 
+			    									.distance(raio, DistanceUnit.KILOMETERS)         
 			    									.optimizeBbox("memory")                         
 			    									.geoDistance(GeoDistance.ARC);
 		
@@ -129,8 +157,16 @@ public class ElasticSearchDAO {
 		        .execute()
 		        .actionGet();
 		
-		
-		return null;
+		CordenadaGeografica cordenadaAux = new CordenadaGeografica();
+		SearchHits searchHits = response.getHits();
+		SearchHit[] hits = searchHits.getHits();
+		System.out.println(hits.length);
+		for(SearchHit hit : hits) {
+			cordenadaAux = gson.fromJson(hit.getSource().toString(), CordenadaGeografica.class);
+			cordenadas.add(cordenadaAux);
+		}
+
+		return cordenadas;
 	}
 
 	public void updateCordenada(CordenadaGeografica cordenada) {

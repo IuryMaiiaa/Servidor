@@ -32,6 +32,11 @@ public class CordenadasResource {
 	@Path("/listarTodos")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ArrayList<CordenadaGeografica> listarTodasCordenadas() {
+		int raio = 1000000000;
+		CordenadaGeografica cordenada = new CordenadaGeografica();
+		cordenada.setLat(-4.9684287);
+		cordenada.setLon(-39.0194857);
+		controllerCordenadas.listarProximas(cordenada,raio);
 		return controllerCordenadas.listarTodos();
 	}
 	

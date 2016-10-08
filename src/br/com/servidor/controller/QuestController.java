@@ -1,6 +1,7 @@
 package br.com.servidor.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.servidor.model.CordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
@@ -39,14 +40,13 @@ public class QuestController {
 	}
 
 	public ArrayList<QuestGeolocalizada> listarTodos() {
-		// TODO Auto-generated method stub
-		return null;
+		return (ArrayList<QuestGeolocalizada>) questRepository.find(QuestGeolocalizada.class);
 	}
 
 	public ArrayList<QuestGeolocalizada> listarProximas(
 			CordenadaGeografica cordenada, int raio) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CordenadaGeografica> listaCordenadasProximas = cordenadaController.listarProximas(cordenada, raio);
+		return (ArrayList<QuestGeolocalizada>) questRepository.findQuestsByCordenadas(listaCordenadasProximas);
 	}
 
 }

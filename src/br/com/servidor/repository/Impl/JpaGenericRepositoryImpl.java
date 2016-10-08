@@ -24,39 +24,43 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 
 	private static Logger log = LoggerFactory.getLogger(JpaGenericRepositoryImpl.class);
 
-	protected EntityManager em = entityManagerFactory.createEntityManager();
+	protected EntityManager emx = entityManagerFactory.createEntityManager();
 
 	@Override
 	@PersistenceContext
 	public void setEntityManager(EntityManager em) {
 		
 		log.debug("Setting EntityManager: {} {} ", this.getClass(), em);
-		this.em = em;
+		emx = em;
 	}
 
 	@Override
 	public void save(T entity) {
-		this.em.getTransaction().begin();
-		this.em.persist(entity);
-		this.em.getTransaction().commit();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(entity);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void update(T entity) {
-		this.em.getTransaction().begin();
-		this.em.merge(entity);
-		this.em.getTransaction().commit();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(entity);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void delete(T entity) {
-		this.em.getTransaction().begin();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
 		em.remove(em.merge(entity));
-		this.em.getTransaction().commit();
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public T find(Class<T> entityClass, Object id) {
+		EntityManager em = entityManagerFactory.createEntityManager();
 		T result = null;
 		result = em.find(entityClass, id);
 		return result;
@@ -70,6 +74,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> find(Class<T> entityClass, int firstResult, int maxResults) {
+		EntityManager em = entityManagerFactory.createEntityManager();
 		List<T> result = null;
 		Query q = em.createQuery("select obj from "
 				+ entityClass.getSimpleName() + " obj");
@@ -106,6 +111,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 	public List find(QueryType type, String query,
 			Map<String, Object> namedParams, int firstResult, int maxResults) {
 		List result = null;
+		EntityManager em = entityManagerFactory.createEntityManager();
 		Query q;
 		if (type == QueryType.JPQL) {
 			q = em.createQuery(query);
@@ -129,7 +135,8 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 	}
 
 	private void setNamedParameters(Query q, Map<String, Object> namedParams) {
-		this.em.getTransaction().begin();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
 		if (namedParams != null) {
 			log.debug("Named parameters: {}", namedParams);
 			Set<String> keys = namedParams.keySet();
@@ -137,7 +144,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 				q.setParameter(key, namedParams.get(key));
 			}
 		}
-		this.em.getTransaction().commit();
+		em.getTransaction().commit();
 	}
 	
 	@Override
@@ -154,6 +161,7 @@ public class JpaGenericRepositoryImpl<T> implements GenericRepository<T> {
 	}
 
 	public int executeUpdate(String sql, Map<String, Object> namedParams) {
+		EntityManager em = entityManagerFactory.createEntityManager();
 		Query q = em.createNativeQuery(sql);
 		setNamedParameters(q, namedParams);
 		return q.executeUpdate();

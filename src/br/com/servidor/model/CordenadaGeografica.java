@@ -9,9 +9,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-
-
 /**
  * 
  * @author Iury
@@ -36,35 +33,35 @@ public class CordenadaGeografica {
 	@Column(name="lon")
 	private double lon;
 	
-	
 	public CordenadaGeografica() {
 		
 	}
+	
 	public CordenadaGeografica(double lat, double lon) {
 		this.lat = lat;
 		this.lon = lon;
 	}
 	
-	
 	public int getID() {
 		return id;
 	}
-	
 	
 	public void setID(int iD) {
 		id = iD;
 	}
 	
-	
 	public double getLat() {
 		return lat;
 	}
+	
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+	
 	public double getLon() {
 		return lon;
 	}
+	
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
@@ -72,5 +69,4 @@ public class CordenadaGeografica {
 	public String getIdString() {
 		return id + "";
 	}
-
 }
