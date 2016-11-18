@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(uniqueConstraints= @UniqueConstraint(columnNames = {"lat", "lon"}),name="cordenadageografica")
 @XmlRootElement
-public class CordenadaGeografica {
+public class CoordenadaGeografica {
 	
 	@Id
 	@Column(name = "id_c")
@@ -33,11 +33,11 @@ public class CordenadaGeografica {
 	@Column(name="lon")
 	private double lon;
 	
-	public CordenadaGeografica() {
+	public CoordenadaGeografica() {
 		
 	}
 	
-	public CordenadaGeografica(double lat, double lon) {
+	public CoordenadaGeografica(double lat, double lon) {
 		this.lat = lat;
 		this.lon = lon;
 	}

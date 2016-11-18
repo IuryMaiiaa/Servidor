@@ -27,7 +27,7 @@ import org.elasticsearch.search.SearchHits;
 import com.google.gson.Gson;
 
 import br.com.servidor.factory.ESClientProvider;
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.model.CoordenadaGeografica;
 
 public class ElasticSearchDAO {
 	private static String index="cordenadas";
@@ -90,7 +90,7 @@ public class ElasticSearchDAO {
 
 	}
 
-	private static void updateDocument(Client client, String index, String type,CordenadaGeografica cordenada) {
+	private static void updateDocument(Client client, String index, String type,CoordenadaGeografica cordenada) {
 		getDocument(ESClientProvider.instance().getClient(), cordenada.getIdString());
 		UpdateRequest updateRequest = new UpdateRequest();
 		updateRequest.index(index);
@@ -107,7 +107,7 @@ public class ElasticSearchDAO {
 		
 	}
 
-	public void adicionarCordenada(CordenadaGeografica aux) {
+	public void adicionarCordenada(CoordenadaGeografica aux) {
 		Gson gson = new Gson();
 		Client client = ESClientProvider.instance().getClient();
 		System.out.println(putJsonDocument(aux.getID(), aux.getLat(), aux.getLon()).toString());
@@ -128,9 +128,9 @@ public class ElasticSearchDAO {
 		getDocument(client, Integer.toString(aux.getID()));
 	}
 
-	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
+	public ArrayList<CoordenadaGeografica> listarProximas(CoordenadaGeografica cordenada, int raio) {
 		Client client = ESClientProvider.instance().getClient();
-		ArrayList<CordenadaGeografica> cordenadas = new ArrayList<CordenadaGeografica>();
+		ArrayList<CoordenadaGeografica> cordenadas = new ArrayList<CoordenadaGeografica>();
 		Gson gson = new Gson();
 		 //getDocument(client, "1");
 		/*client.admin().indices().prepareCreate("cordenadas").get();
@@ -157,19 +157,19 @@ public class ElasticSearchDAO {
 		        .execute()
 		        .actionGet();
 		
-		CordenadaGeografica cordenadaAux = new CordenadaGeografica();
+		CoordenadaGeografica cordenadaAux = new CoordenadaGeografica();
 		SearchHits searchHits = response.getHits();
 		SearchHit[] hits = searchHits.getHits();
 		System.out.println(hits.length);
 		for(SearchHit hit : hits) {
-			cordenadaAux = gson.fromJson(hit.getSource().toString(), CordenadaGeografica.class);
+			cordenadaAux = gson.fromJson(hit.getSource().toString(), CoordenadaGeografica.class);
 			cordenadas.add(cordenadaAux);
 		}
 
 		return cordenadas;
 	}
 
-	public void updateCordenada(CordenadaGeografica cordenada) {
+	public void updateCordenada(CoordenadaGeografica cordenada) {
 		Client client = ESClientProvider.instance().getClient();
 		System.out.println(putJsonDocument(cordenada.getID(), cordenada.getLat(), cordenada.getLon()).toString());
 		try {
@@ -185,7 +185,7 @@ public class ElasticSearchDAO {
 		
 	}
 
-	public void deletarCordenada(CordenadaGeografica cordenada) {
+	public void deletarCordenada(CoordenadaGeografica cordenada) {
 		Client client = ESClientProvider.instance().getClient();
 		System.out.println(putJsonDocument(cordenada.getID(), cordenada.getLat(), cordenada.getLon()).toString());
 		try {

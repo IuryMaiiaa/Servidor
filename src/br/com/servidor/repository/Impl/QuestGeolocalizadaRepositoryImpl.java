@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import enumeration.QueryType;
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.model.CoordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
 import br.com.servidor.model.Usuario;
 import br.com.servidor.repository.QuestGeolocalizadaRepository;
@@ -15,10 +15,10 @@ public class QuestGeolocalizadaRepositoryImpl extends JpaGenericRepositoryImpl<Q
 
 	@Override
 	public List<QuestGeolocalizada> findQuestsByCordenadas(
-			List<CordenadaGeografica> cordenadas) {
+			List<CoordenadaGeografica> cordenadas) {
 		ArrayList<QuestGeolocalizada> quests = new ArrayList<QuestGeolocalizada>();
 		
-		for (CordenadaGeografica cordenada : cordenadas) {
+		for (CoordenadaGeografica cordenada : cordenadas) {
 			if(cordenada!=null) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("idCordenada", cordenada.getID());

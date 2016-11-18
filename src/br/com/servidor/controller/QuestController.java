@@ -3,26 +3,26 @@ package br.com.servidor.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.model.CoordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
-import br.com.servidor.repository.CordenadaGeogaficaRepository;
+import br.com.servidor.repository.CoordenadaGeogaficaRepository;
 import br.com.servidor.repository.QuestGeolocalizadaRepository;
-import br.com.servidor.repository.Impl.CordenadaGeograficaRepositoryImpl;
+import br.com.servidor.repository.Impl.CoordenadaGeograficaRepositoryImpl;
 import br.com.servidor.repository.Impl.QuestGeolocalizadaRepositoryImpl;
 
 public class QuestController {
 	private QuestGeolocalizadaRepository questRepository;
-	private CordenadaController cordenadaController;
+	private CoordenadaController coordenadaController;
 	
 	public QuestController() {
 		questRepository = new QuestGeolocalizadaRepositoryImpl();
-		cordenadaController = new CordenadaController();
+		coordenadaController = new CoordenadaController();
 	}
 	
 	public void adicionarNovaQuest(QuestGeolocalizada quest) {
 		System.out.println(quest.getCordenada().getLat() + " " + quest.getCordenada().getLon());
-		cordenadaController.add(quest.getCordenada());
-		CordenadaGeografica cordenada = cordenadaController.find(quest.getCordenada().getLat(), quest.getCordenada().getLon());
+		coordenadaController.add(quest.getCordenada());
+		CoordenadaGeografica cordenada = coordenadaController.find(quest.getCordenada().getLat(), quest.getCordenada().getLon());
 		if(cordenada == null) {
 			questRepository.save(quest);
 		} else {
@@ -44,8 +44,8 @@ public class QuestController {
 	}
 
 	public ArrayList<QuestGeolocalizada> listarProximas(
-			CordenadaGeografica cordenada, int raio) {
-		List<CordenadaGeografica> listaCordenadasProximas = cordenadaController.listarProximas(cordenada, raio);
+			CoordenadaGeografica cordenada, int raio) {
+		List<CoordenadaGeografica> listaCordenadasProximas = coordenadaController.listarProximas(cordenada, raio);
 		return (ArrayList<QuestGeolocalizada>) questRepository.findQuestsByCordenadas(listaCordenadasProximas);
 	}
 

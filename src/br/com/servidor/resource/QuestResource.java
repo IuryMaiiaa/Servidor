@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.com.servidor.controller.QuestController;
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.model.CoordenadaGeografica;
 import br.com.servidor.model.QuestGeolocalizada;
 import br.com.servidor.utilites.QuestReferenciaCircular;
 
@@ -63,7 +63,7 @@ public class QuestResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<QuestGeolocalizada> listarCordenadasProximas(@PathParam(value = "lat") String lat,
 			@PathParam(value = "lon") String lon, @PathParam(value = "raio") String raio) {
-		CordenadaGeografica cordenada = new CordenadaGeografica();
+		CoordenadaGeografica cordenada = new CoordenadaGeografica();
 		System.out.println(lat + " " + lon + " " + " " + raio);
 		cordenada.setLat(Float.parseFloat(lat));
 		cordenada.setLon(Float.parseFloat(lon));

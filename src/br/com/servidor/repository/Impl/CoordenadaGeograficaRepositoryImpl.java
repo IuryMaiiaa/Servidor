@@ -24,21 +24,21 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.metamodel.Metamodel;
 
 import enumeration.QueryType;
-import br.com.servidor.model.CordenadaGeografica;
-import br.com.servidor.repository.CordenadaGeogaficaRepository;
+import br.com.servidor.model.CoordenadaGeografica;
+import br.com.servidor.repository.CoordenadaGeogaficaRepository;
 import br.com.servidor.repository.GenericRepository;
 
-public class CordenadaGeograficaRepositoryImpl extends
-		JpaGenericRepositoryImpl<CordenadaGeografica> implements
-		CordenadaGeogaficaRepository {
+public class CoordenadaGeograficaRepositoryImpl extends
+		JpaGenericRepositoryImpl<CoordenadaGeografica> implements
+		CoordenadaGeogaficaRepository {
 
 	@Override
-	public CordenadaGeografica getCordenada(double lat, double lon) {
+	public CoordenadaGeografica getCordenada(double lat, double lon) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("lat", lat);
 		params.put("lon", lon);
 		
-		List<CordenadaGeografica> result =  find(QueryType.JPQL,
+		List<CoordenadaGeografica> result =  find(QueryType.JPQL,
 				"from CordenadaGeografica where lat=:lat and lon=:lon", params);
 		
 		if(result != null && !result.isEmpty()) {
@@ -49,8 +49,8 @@ public class CordenadaGeograficaRepositoryImpl extends
 	}
 
 	@Override
-	public void addCordenada(CordenadaGeografica cordenada) {
-		CordenadaGeografica aux = getCordenada(cordenada.getLat(), cordenada.getLon());
+	public void addCordenada(CoordenadaGeografica cordenada) {
+		CoordenadaGeografica aux = getCordenada(cordenada.getLat(), cordenada.getLon());
 		if(aux==null) {
 			this.save(cordenada);
 		}

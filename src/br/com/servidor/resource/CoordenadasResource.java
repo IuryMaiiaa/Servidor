@@ -16,55 +16,50 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.core.impl.provider.header.NewCookieProvider;
 
-import br.com.servidor.controller.CordenadaController;
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.controller.CoordenadaController;
+import br.com.servidor.model.CoordenadaGeografica;
 
 
 @Path("/Cordenada")
-public class CordenadasResource {
-	private CordenadaController controllerCordenadas;
+public class CoordenadasResource {
+	private CoordenadaController controllerCordenadas;
 	
-	public CordenadasResource() {
-		controllerCordenadas = new CordenadaController();
+	public CoordenadasResource() {
+		controllerCordenadas = new CoordenadaController();
 	}
 	
 	@GET
 	@Path("/listarTodos")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<CordenadaGeografica> listarTodasCordenadas() {
-		int raio = 1000000000;
-		CordenadaGeografica cordenada = new CordenadaGeografica();
-		cordenada.setLat(-4.9684287);
-		cordenada.setLon(-39.0194857);
-		controllerCordenadas.listarProximas(cordenada,raio);
+	public ArrayList<CoordenadaGeografica> listarTodasCordenadas() {
 		return controllerCordenadas.listarTodos();
 	}
 	
 	@POST
-	@Path("/addCordenada")
+	@Path("/addCoordenada")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void adicionarCordenada(CordenadaGeografica cordenadaGeografica) {
-		controllerCordenadas.add(cordenadaGeografica);
+	public void adicionarCordenada(CoordenadaGeografica coordenadaGeografica) {
+		controllerCordenadas.add(coordenadaGeografica);
 	}
 	
 	@POST
-	@Path("/updateCordenada")
+	@Path("/updateCoordenada")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void atualizarCordenada(CordenadaGeografica cordenada) {
+	public void atualizarCordenada(CoordenadaGeografica cordenada) {
 		controllerCordenadas.update(cordenada);
 	}
 	
 	@POST
 	@Path("/removeCordenada")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void removerCordenada(CordenadaGeografica cordenada) {
+	public void removerCordenada(CoordenadaGeografica cordenada) {
 		controllerCordenadas.remove(cordenada);
 	}
 	
 	@GET
 	@Path("/listarProximas")
 	@Produces("aplication/json")
-	public ArrayList<CordenadaGeografica> listarCordenadasProximas(CordenadaGeografica cordenada,int raio) {
+	public ArrayList<CoordenadaGeografica> listarCordenadasProximas(CoordenadaGeografica cordenada,int raio) {
 		return controllerCordenadas.listarProximas(cordenada,raio);
 	}
 

@@ -7,19 +7,19 @@ import br.com.servidor.repository.Impl.UsuarioRepositoryImpl;
 
 public class UsuarioController {
 	private UsuarioRepository usuarioRepository;
-	private CordenadaController cordenadaController;
+	private CoordenadaController coordenadaController;
 	
 
 	public UsuarioController () {
 		usuarioRepository = new UsuarioRepositoryImpl();
-		cordenadaController = new CordenadaController();
+		coordenadaController = new CoordenadaController();
 	}
 	
 	public void addUsuario(Usuario usuario) {
 		if(usuario.getMinhasQuests() != null) {
 			for(QuestGeolocalizada quest : usuario.getMinhasQuests()){
-				cordenadaController.add(quest.getCordenada());
-				quest.setCordenada(cordenadaController.find(quest.getCordenada().getLat(),
+				coordenadaController.add(quest.getCordenada());
+				quest.setCordenada(coordenadaController.find(quest.getCordenada().getLat(),
 															quest.getCordenada().getLon()));	
 			}
 		}

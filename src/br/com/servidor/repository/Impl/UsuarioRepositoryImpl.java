@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import enumeration.QueryType;
-import br.com.servidor.model.CordenadaGeografica;
+import br.com.servidor.model.CoordenadaGeografica;
 import br.com.servidor.model.Usuario;
 import br.com.servidor.repository.UsuarioRepository;
 

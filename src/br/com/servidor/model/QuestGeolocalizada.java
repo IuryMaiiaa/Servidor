@@ -41,7 +41,7 @@ public class QuestGeolocalizada {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cordenada")
-	private CordenadaGeografica cordenada;
+	private CoordenadaGeografica cordenada;
 	
 	public QuestGeolocalizada() {
         etapas = new ArrayList<Etapa>();
@@ -96,11 +96,11 @@ public class QuestGeolocalizada {
 		return etapas;
 	}
 
-	public CordenadaGeografica getCordenada() {
+	public CoordenadaGeografica getCordenada() {
 		return cordenada;
 	}
 
-	public void setCordenada(CordenadaGeografica cordenada) {
+	public void setCordenada(CoordenadaGeografica cordenada) {
 		this.cordenada = cordenada;
 	}
 

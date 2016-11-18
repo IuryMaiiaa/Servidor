@@ -2,19 +2,19 @@ package br.com.servidor.controller;
 
 import java.util.ArrayList;
 
-import br.com.servidor.model.CordenadaGeografica;
-import br.com.servidor.repository.CordenadaGeogaficaRepository;
+import br.com.servidor.model.CoordenadaGeografica;
+import br.com.servidor.repository.CoordenadaGeogaficaRepository;
 import br.com.servidor.repository.ElasticSearchDAO;
-import br.com.servidor.repository.Impl.CordenadaGeograficaRepositoryImpl;
+import br.com.servidor.repository.Impl.CoordenadaGeograficaRepositoryImpl;
 
-public class CordenadaController {
-	private CordenadaGeogaficaRepository cordenadaRepository = new CordenadaGeograficaRepositoryImpl();
+public class CoordenadaController {
+	private CoordenadaGeogaficaRepository cordenadaRepository = new CoordenadaGeograficaRepositoryImpl();
 	
-	public ArrayList<CordenadaGeografica> listarTodos() {
-		return (ArrayList<CordenadaGeografica>) cordenadaRepository.find(CordenadaGeografica.class);
+	public ArrayList<CoordenadaGeografica> listarTodos() {
+		return (ArrayList<CoordenadaGeografica>) cordenadaRepository.find(CoordenadaGeografica.class);
 	}
 
-	public void add(CordenadaGeografica cordenada) {
+	public void add(CoordenadaGeografica cordenada) {
 		if (cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon()) == null) {
 			cordenadaRepository.save(cordenada);
 			cordenada = cordenadaRepository.getCordenada(cordenada.getLat(), cordenada.getLon());
@@ -24,21 +24,21 @@ public class CordenadaController {
 		}
 	}
 	
-	public CordenadaGeografica find(double lat, double lon) {
+	public CoordenadaGeografica find(double lat, double lon) {
 		return cordenadaRepository.getCordenada(lat,lon);
 	}
 
-	public ArrayList<CordenadaGeografica> listarProximas(CordenadaGeografica cordenada, int raio) {
+	public ArrayList<CoordenadaGeografica> listarProximas(CoordenadaGeografica cordenada, int raio) {
 		ElasticSearchDAO es = new ElasticSearchDAO();
 		return es.getInstance().listarProximas(cordenada,raio);
 	}
 
-	public void update(CordenadaGeografica cordenada) {
+	public void update(CoordenadaGeografica cordenada) {
 		cordenadaRepository.update(cordenada);
 		ElasticSearchDAO.getInstance().updateCordenada(cordenada);
 	}
 
-	public void remove(CordenadaGeografica cordenada) {
+	public void remove(CoordenadaGeografica cordenada) {
 		cordenadaRepository.delete(cordenada);
 		ElasticSearchDAO.getInstance().deletarCordenada(cordenada);
 		
